@@ -142,6 +142,11 @@ class Resnet(nn.Module):
     
 if __name__ == "__main__":
     batch_size = 32
+    print(LeNet())
     summary(LeNet(), (batch_size, 1, 16, 3004))
+    print("/" * 90, "\n" * 2)
+    print(VGG16())
     summary(VGG16(), (batch_size, 1, 16, 3004))
+    print("/" * 90, "\n" * 2)
+    print(Resnet())
     summary(Resnet(), (batch_size, 1, 16, 3004))
