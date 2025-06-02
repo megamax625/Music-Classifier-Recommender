@@ -4,6 +4,7 @@ from transformers import ASTFeatureExtractor, ASTForAudioClassification
 import torch.nn.functional as F
 import torch.nn as nn
 import torch
+from torchinfo import summary
 
 class LeNet(nn.Module):
     def __init__(self):
@@ -138,3 +139,9 @@ class Resnet(nn.Module):
         x = self.classifier(x)
 
         return x
+    
+if __name__ == "__main__":
+    batch_size = 32
+    summary(LeNet(), (batch_size, 1, 16, 3004))
+    summary(VGG16(), (batch_size, 1, 16, 3004))
+    summary(Resnet(), (batch_size, 1, 16, 3004))
