@@ -1,0 +1,6 @@
+VGG_best.pt
+runs/
+__pycache__/
+temp.wav
+Dataset/MFCCs/
+saved_AST_model/
