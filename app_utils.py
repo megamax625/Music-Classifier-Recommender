@@ -94,7 +94,7 @@ def classify_step(data, modelname, segnum, mode="mfcc", debug=False):
 def recommend(data, predicted_label, mode="mfcc", top_n=5, debug=False):
     modepath = ""
     if mode == "mfcc":
-        modepath = "MFCCS"
+        modepath = "MFCCs"
     elif mode == "ms":
         modepath = "Mel Spectrograms"
     dataset_path = f"./Dataset/{modepath}/{predicted_label}"

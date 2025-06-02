@@ -93,8 +93,9 @@ if st.session_state["trigger_classify"] and uploaded_file:
         top3_labels = [inv_label_map[i] for i in top3_ids]
 
     elif model_choice == "AST":
-        model = ASTForAudioClassification.from_pretrained("./saved_ast_model")
-        feature_extractor = ASTFeatureExtractor.from_pretrained("./saved_ast_model")
+        model_path = "./saved_ast_model"
+        model = ASTForAudioClassification.from_pretrained(model_path, local_files_only=True)
+        feature_extractor = ASTFeatureExtractor.from_pretrained(model_path, local_files_only=True)
         model.eval()
         
         sr, audio_input = wavfile.read("temp.wav")
@@ -131,7 +132,8 @@ if st.session_state["trigger_classify"] and uploaded_file:
                 recs = AST_recommend(audio_input, sr, label, top_n=3, debug=False)
             else:
                 recs = recommend(mfccs, label, mode="mfcc", top_n=3, debug=False)
-
+            if not recs:
+                st.warning("Не удалось найти рекомендации. Проверьте наличие файлов в директории Dataset.")
             for j, (path, dist) in enumerate(recs, start=1):
                 audio_label = os.path.basename(path)
                 st.markdown(f"Рекомендация №{j}: {audio_label}; Расстояние: `{dist:.4f}`")
